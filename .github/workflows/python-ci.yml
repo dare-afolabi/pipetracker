@@ -1,0 +1,63 @@
+name: Python CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  test:
+    name: Test on Python ${{ matrix.python-version }}
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.9, 3.10, 3.11, 3.12]
+
+    env:
+      PIP_CACHE_DIR: ${{ github.workspace }}/.cache/pip
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Cache pip
+        uses: actions/cache@v3
+        with:
+          path: .cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
+      - name: Install dependencies
+        run: |
+          python -m venv venv
+          . venv/bin/activate
+          python -m pip install --upgrade pip
+          pip install black flake8 mypy pytest
+          pip install -e ".[dev]" || echo "No setup.cfg/pyproject.toml found"
+          pip install types-requests pandas-stubs types-PyYAML types-networkx
+          pip install -r requirements.txt || echo "No requirements.txt found"
+
+      - name: Run Lint
+        run: |
+          . venv/bin/activate
+          black . --line-length 79 --check
+          flake8 .
+          mypy pipetrack --exclude 'pipetrack/api/main.py'
+
+      - name: Run Tests
+        run: |
+          . venv/bin/activate
+          pytest --maxfail=1 --disable-warnings -q tests/ --cov=pipetrack --cov-report=xml
+
+      - name: Upload Coverage Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: coverage.xml
