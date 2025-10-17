@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "pipetrack"
-version = "1.0.0"
+version = "0.0.1"
 description = "Distributed data flow and lineage tracer for microservice logs"
 authors = [
     { name = "Dare Afolabi", email = "dare.afolabi@outlook.com" }

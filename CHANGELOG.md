@@ -1,6 +1,6 @@
 # Changelog
 
-## v1.0.0 (2025-10-15)
+## v0.0.1 (2025-10-17)
 - First stable release
 - Added lazy-loading for plugins (Kafka, S3, GCS, Datadog)
 - Typer CLI entrypoint finalized

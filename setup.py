@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="pipetrack",
-    version="1.0.0",
+    version="0.0.1",
     description="Data flow and lineage tracer for"
     "distributed microservice logs",
     author="Dare Afolabi",
