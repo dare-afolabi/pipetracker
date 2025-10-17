@@ -1,0 +1,77 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pipetrack"
+version = "1.0.0"
+description = "Distributed data flow and lineage tracer for microservice logs"
+authors = [
+    { name = "Dare Afolabi", email = "dare.afolabi@outlook.com" }
+]
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.9"
+
+dependencies = [
+    "typer>=0.12",
+    "fastapi>=0.115",
+    "uvicorn>=0.23",
+    "pandas>=2.0",
+    "pydantic>=2.4.0",
+    "networkx>=3.0",
+    "matplotlib>=3.8",
+    "plotly>=5.15",
+    "requests>=2.31",
+    "PyYAML>=6.0",
+    "watchdog>=4.0",
+    "cryptography>=42.0.0",
+    "loguru>=0.6.0"
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "pytest-mock",
+    "mypy",
+    "black",
+    "coverage",
+    "boto3",
+    "google-cloud-storage",
+    "datadog-api-client",
+    "kafka-python",
+    "pydantic-settings",
+    "httpx",
+    "requests_mock",
+]
+
+[tool.setuptools.packages.find]
+where = ["pipetrack"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[project.scripts]
+pipetrack = "pipetrack.cli.main:app"
+
+[tool.black]
+line-length = 79
+
+[tool.flake8]
+max-line-length = 79
+
+[[tool.mypy.overrides]]
+module = "boto3.*"
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = "google.cloud.*"
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = "kafka.*"
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = "plotly.*"
+ignore_missing_imports = true

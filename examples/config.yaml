@@ -1,0 +1,11 @@
+log_sources:
+  - "sourceA"
+match_keys:
+  - "id"
+output:
+  format: "json"
+  path: "./output"
+verifier_endpoints:
+  local: "http://localhost:8000"
+security:
+  encrypt_logs: false

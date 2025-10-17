@@ -1,0 +1,41 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+*.egg-info/
+dist/
+build/
+.eggs/
+*.pyo
+*.pyd
+*.log
+.pytest_cache/
+.mypy_cache/
+.env
+.venv
+.idea/
+.vscode/
+.DS_Store
+
+# Coverage / Test
+.coverage
+htmlcov/
+.tox/
+nosetests.xml
+coverage.xml
+
+# Data
+data/sample_logs/* 
+!data/sample_logs/.gitkeep
+data/example_output/* 
+!data/example_output/.gitkeep
+
+# Docker
+*.bak
+*.tmp
+docker-compose.override.yml
+
+# Jupyter / Temp
+*.ipynb_checkpoints/
+*.swp
+*.swo

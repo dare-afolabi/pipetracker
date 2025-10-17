@@ -1,0 +1,17 @@
+log_sources:
+  - ./data/sample_logs/
+  - s3://my-log-bucket/serviceA/
+  - gs://my-gcs-bucket/serviceB/
+  - kafka://broker:9092/topic/logs
+  - datadog://query=service:*
+match_keys:
+  - transaction_id
+  - user_id
+  - correlation_token
+output:
+  format: html
+  path: ./data/example_output/
+verifier_endpoints:
+  serviceA: https://api.serviceA.com/verify
+security:
+  encrypt_logs: true
