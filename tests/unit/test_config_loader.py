@@ -8,12 +8,14 @@ def test_load_valid_config(tmp_path):
     output:
       format: "json"
       path: "/tmp/out"
+      max_files: 100
+      max_size_mb: 10
     verifier_endpoints: {"local": "http://localhost:8000"}
     security:
       encrypt_logs: false
     """
     )
-    from pipetrack.core.config_loader import ConfigLoader
+    from pipetracker.core.config_loader import ConfigLoader
 
     cfg = ConfigLoader().load(str(yaml_path))
     assert cfg.output.format == "json"
@@ -24,7 +26,7 @@ def test_load_invalid_config(tmp_path):
     """Raise ValueError on missing required fields."""
     yaml_path = tmp_path / "bad.yaml"
     yaml_path.write_text("invalid: true")
-    from pipetrack.core.config_loader import ConfigLoader
+    from pipetracker.core.config_loader import ConfigLoader
 
     loader = ConfigLoader()
     try:

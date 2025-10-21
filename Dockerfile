@@ -1,34 +1,29 @@
-# Use specific tag for reproducibility
-FROM python:3.11.5-slim AS base
+# Use an official Python runtime as the base image
+FROM python:3.9-slim
 
-ENV PYTHONDONTWRITEBYTECODE=1 \
-    PYTHONUNBUFFERED=1 \
-    POETRY_VIRTUALENVS_CREATE=false
-
+# Set working directory
 WORKDIR /app
 
-# system deps, add nonroot user
-RUN apt-get update \
- && apt-get install -y --no-install-recommends build-essential gcc libpq-dev \
- && useradd --create-home --shell /bin/bash appuser \
- && rm -rf /var/lib/apt/lists/*
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    gcc \
+    python3-dev \
+    && rm -rf /var/lib/apt/lists/*
 
-COPY pyproject.toml poetry.lock* /app/
-# If using pip requirements, COPY requirements.txt /app/
+# Copy requirements file
+COPY requirements-dev.txt .
 
-# Install dependencies (if using pip)
-COPY requirements.txt /app/
-RUN pip install --no-cache-dir -r requirements.txt
+# Install Python dependencies
+RUN pip install --no-cache-dir -r requirements-dev.txt
 
-# Copy app
-COPY . /app
-RUN chown -R appuser:appuser /app
+# Copy project files
+COPY . .
 
-USER appuser
+# Ensure the output directory exists
+RUN mkdir -p output
 
-EXPOSE 8000
+# Set environment variables
+ENV PYTHONUNBUFFERED=1
 
-HEALTHCHECK --interval=30s --timeout=5s --start-period=5s \
-  CMD curl -f http://localhost:8000/healthz || exit 1
-
-CMD ["uvicorn", "pipetrack.api.main:app", "--host", "0.0.0.0", "--port", "8000", "--workers", "2"]
+# Run the application
+CMD ["uvicorn", "pipetracker.api.main:app", "--host", "0.0.0.0", "--port", "8000", "--workers", "2"]

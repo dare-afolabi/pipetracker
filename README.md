@@ -1,148 +1,80 @@
 ![logo](assets/logo.jpeg)
  
 <div align="center">
-  <a href="https://github.com/dare-afolabi/pipetrack/releases">
-    <img src="https://img.shields.io/github/v/tag/dare-afolabi/pipetrack" alt="🧩">
+  <a href="https://github.com/dare-afolabi/pipetracker/releases">
+    <img src="https://img.shields.io/github/v/tag/dare-afolabi/pipetracker" alt="Tag">
   </a>
-  <a href="https://github.com/dare-afolabi/pipetrack?tab=MIT-1-ov-file#readme">
-    <img src="https://img.shields.io/github/license/dare-afolabi/pipetrack" alt="📄">
+  <a href="https://github.com/dare-afolabi/pipetracker?tab=MIT-1-ov-file#readme">
+    <img src="https://img.shields.io/github/license/dare-afolabi/pipetracker" alt="License">
   </a>
   <a href="https://github.com/sponsors/dare-afolabi">
-    <img src="https://img.shields.io/github/sponsors/dare-afolabi" alt="🙏">
+    <img src="https://img.shields.io/github/sponsors/dare-afolabi" alt="Sponsors">
   </a>
-  <a href="https://github.com/dare-afolabi/pipetrack/stargazers">
-    <img src="https://img.shields.io/github/stars/dare-afolabi/pipetrack?style=flat" alt="⭐️">
+  <a href="https://github.com/dare-afolabi/pipetracker/stargazers">
+    <img src="https://img.shields.io/github/stars/dare-afolabi/pipetracker?style=flat" alt="Stars">
   </a>
 </div>
 
-# Pipetrack
- 
-**Pipetrack** is a modular log ingestion and processing framework. It provides a lightweight CLI, plugin system, and integrations for streaming or batch log collection from multiple backends.
+# Pipetracker
 
----
+Pipetracker is a Python-based tool for tracing logs across distributed microservice environments. It supports log retrieval from local files, AWS S3, Google Cloud Storage (GCS), Kafka, and Datadog, with an extensible plugin architecture for additional sources. Pipetracker provides a command-line interface (CLI) and a RESTful API to trace logs by identifiers (e.g., transaction IDs), with features for PII masking, log encryption, visualization, service verification, and performance tracking.
 
 ## Features
-- Pluggable log sources (S3, GCS, Kafka, Datadog, local files)
-- Typer-based CLI for simple commands
-- Pydantic-based configuration (YAML + env overrides)
-- Lazy-loaded SDKs (no heavy dependencies unless needed)
-- CI/CD with pytest and coverage
-- Docker-ready for deployment
 
----
+- **Distributed Log Tracing**: Trace identifiers across logs from local files, S3, GCS, Kafka, and Datadog.
+- **Plugin Architecture**: Extensible plugins for integrating new log sources.
+- **Security**: PII masking, log encryption, and secure credential management for plugins.
+- **Scalability**: Configurable limits (`max_files`, `max_size_mb`) to prevent resource exhaustion.
+- **Visualization**: Outputs traces in CLI or HTML format (using Plotly and NetworkX for graphs).
+- **CLI and API**: User-friendly CLI with Typer and FastAPI-based REST API.
+- **Verification**: Validate traces against service endpoints.
+- **Performance Tracking**: Measure and report trace operation durations.
 
-## Installation
+## Getting Started
 
+### 1. Clone the Repository
 ```bash
-# From PyPI (once published)
-pip install pipetrack
-
-# From source
-git clone https://github.com/dare-afolabi/pipetrack.git
-cd pipetrack
-pip install -e ".[dev]"
-
-# Docker
-docker pull dare-afolabi/pipetrack:latest
+git clone https://github.com/dare-afolabi/pipetracker.git
+cd pipetracker
 ```
 
----
-
-## Usage
-
-### CLI
-
+### 2. Install Dependencies
 ```bash
-pipetrack --help
+pip install .
 ```
 
-Examples:
-
+### 3. Install Plugin Extras
 ```bash
-# Scan logs from multiple sources
-pipetrack scan --config config.yaml
-
-# Send logs to Datadog
-pipetrack send datadog --api-key $DD_API_KEY
+pip install .[kafka,aws,gcs,datadog]
 ```
 
-### API
-
-Start the FastAPI service:
-
+### 4. Generate Configuration
 ```bash
-uvicorn pipetrack.api.main:app --reload
+pipetracker config --init
 ```
 
----
-
-## Configuration
-
-Configuration is provided in **YAML** and validated with **Pydantic**.
-
-```yaml
-log_sources:
-  - "s3://my-bucket/logs/"
-  - "gs://my-logs-bucket/"
-  - "kafka://localhost:9092/my-topic"
-  - "datadog://"
-match_keys:
-  - "trace_id"
-  - "span_id"
-output:
-  format: "json"
-  path: "./output"
-verifier_endpoints:
-  health: "http://localhost:8000/health"
-security:
-  encrypt_logs: false
-```
-
-Env overrides supported via `.env` file:
-
-```
-KAFKA_BOOTSTRAP=localhost:9092
-SERVICE_NAME=pipetrack
-DEBUG=true
-```
-
----
-
-## Plugins
-
-Available sources:
-
-* **S3** (`pipetrack.plugins.s3_plugin.S3Plugin`)
-* **GCS** (`pipetrack.plugins.gcs_plugin.GCSPlugin`)
-* **Kafka** (`pipetrack.plugins.kafka_plugin.KafkaPlugin`)
-* **Datadog** (`pipetrack.plugins.datadog_plugin.DatadogPlugin`)
-* **Local filesystem** (`pipetrack.plugins.local_plugin.LocalPlugin`)
-
-All plugins use **lazy imports** to avoid heavy dependencies unless explicitly used.
-
----
-
-## Development
-
+### 5. Run a Trace
 ```bash
-# Run tests
-pytest --maxfail=1 --disable-warnings -q
-
-# Run with coverage
-pytest --cov=pipetrack tests/
+pipetracker trace TXN12345 --config pipetracker.yaml
 ```
 
----
+## Documentation
+Detailed documentation is available in the `docs/` directory:
 
-## Docker
+- [User Guide](./docs/user_guide.md)
+- [Installation](./docs/installation.md)
+- [Usage](./docs/usage.md)
+- [Plugins](./docs/plugins.md)
+- [Development](./docs/development.md)
+- [Deployment](./docs/deployment.md )
+- [Architecture](./docs/architecture.md)
 
-```bash
-docker build -t pipetrack .
-docker run -it pipetrack scan --config config.yaml
-```
-
----
+## Contributing
+Contributions are welcome! See [CONTRIBUTING.md](./docs/CONTRIBUTING.md) for setup and submission guidelines.
 
 ## License
+MIT License. See [LICENSE](./LICENSE) for details.
 
-MIT License © 2025 Dare Afolabi.
+---
+
+*Generated on October 21, 2025*
