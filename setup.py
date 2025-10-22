@@ -21,7 +21,7 @@ setup(
         "matplotlib>=3.8",
         "plotly>=5.22.0",
         "requests>=2.32.3",
-        "requests-mock",
+        "requests-mock>0.22.0",
         "PyYAML>=6.0.1",
         "cryptography>=42.0.8",
         "filelock>=3.15.4",
