@@ -17,7 +17,7 @@
 
 # Pipetracker
 
-Pipetracker is a Python-based tool for tracing logs across distributed microservice environments. It supports log retrieval from local files, AWS S3, Google Cloud Storage (GCS), Kafka, and Datadog, with an extensible plugin architecture for additional sources. Pipetracker provides a command-line interface (CLI) and a RESTful API to trace logs by identifiers (e.g., transaction IDs), with features for PII masking, log encryption, visualization, service verification, and performance tracking.
+Pipetracker is a Python-based tool for tracing logs across distributed microservice environments. It supports log retrieval from local files, AWS S3, Google Cloud Storage (GCS), Kafka, and Datadog, with an extensible plugin architecture for additional sources. Pipetracker provides a command-line interface (CLI) and a REST API to trace logs by identifiers (e.g., transaction IDs), with features for PII masking, log encryption, visualization, service verification, and performance tracking.
 
 ## Features
 
