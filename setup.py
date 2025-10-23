@@ -17,7 +17,7 @@ setup(
         "pydantic-settings>=1.0.5",
         "fastapi>=0.95.0,<1.0.0",
         "uvicorn>=0.29.0",
-        "networkx>=3.3",
+        "networkx",
         "matplotlib>=3.8",
         "plotly>=5.22.0",
         "requests>=2.32.3",

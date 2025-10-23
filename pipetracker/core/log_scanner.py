@@ -57,8 +57,7 @@ class LogScanner:
                     if total_size_bytes + file_size > max_size_bytes:
                         logger.warning(
                             f"Reached max_size limit\
-                                  ({self.config.output.max_size_mb
-                                    if self.config else 10.0} MB)"
+                                  ({self.config.output.max_size_mb if self.config else 10.0} MB)"
                         )
                         break
                     log_files.append(file_path)

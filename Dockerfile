@@ -18,6 +18,7 @@ RUN pip install --no-cache-dir -r requirements-dev.txt
 
 # Copy project files
 COPY . .
+RUN pip install --no-cache-dir .
 
 # Ensure the output directory exists
 RUN mkdir -p output
