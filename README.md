@@ -4,7 +4,7 @@
   <a href="https://github.com/dare-afolabi/pipetracker/releases">
     <img src="https://img.shields.io/github/v/tag/dare-afolabi/pipetracker" alt="Tag">
   </a>
-  <a href="https://github.com/dare-afolabi/pipetracker?tab=MIT-1-ov-file#readme">
+  <a href="https://github.com/dare-afolabi/pipetracker/blob/main/LICENSE">
     <img src="https://img.shields.io/github/license/dare-afolabi/pipetracker" alt="License">
   </a>
   <a href="https://github.com/sponsors/dare-afolabi">
@@ -12,6 +12,9 @@
   </a>
   <a href="https://github.com/dare-afolabi/pipetracker/stargazers">
     <img src="https://img.shields.io/github/stars/dare-afolabi/pipetracker?style=flat" alt="Stars">
+  </a>
+  <a href="https://github.com/dare-afolabi/pipetracker/actions/workflows/python-ci.yml">
+    <img src="https://github.com/dare-afolabi/pipetracker/actions/workflows/python-ci.yml/badge.svg" alt="Python CI">
   </a>
 </div>
 
