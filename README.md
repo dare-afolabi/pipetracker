@@ -16,6 +16,9 @@
   <a href="https://github.com/dare-afolabi/pipetracker/actions/workflows/python-ci.yml">
     <img src="https://github.com/dare-afolabi/pipetracker/actions/workflows/python-ci.yml/badge.svg" alt="Python CI">
   </a>
+  <a href="https://codecov.io/gh/dare-afolabi/pipetracker">
+    <img src="https://img.shields.io/codecov/c/github/dare-afolabi/pipetracker?style=flat" alt="Codecov Coverage">
+  </a>
 </div>
 
 # Pipetracker
